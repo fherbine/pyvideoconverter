@@ -1,0 +1,10 @@
+# Python
+*.pyc
+__pycache__
+env/
+
+# VSCode
+.vscode
+
+# Vim
+.*.sw*
