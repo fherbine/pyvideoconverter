@@ -4,7 +4,7 @@ import os
 import re
 from setuptools import setup, find_packages
 
-PKG_NAME = 'videoconverter'
+PKG_NAME = 'pyvideoconverter'
 PKG_DESC = 'Video converter developped in Python3.'
 
 with open('requirements.txt') as reqf:
