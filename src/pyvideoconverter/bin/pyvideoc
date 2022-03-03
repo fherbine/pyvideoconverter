@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from videoconverter.cli import CliConverter
+from pyvideoconverter.cli import CliConverter
 
 
 if __name__ == '__main__':

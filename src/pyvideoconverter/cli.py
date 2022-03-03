@@ -7,13 +7,14 @@ Its purpose is to provide end user an easy to use command to convert videos.
 import concurrent.futures
 import glob
 import logging
+import ntpath
 import os
 import re
 
 import argparse
 
-from videoconverter.video import Video
-from videoconverter.parallel import SubprocessPool
+from pyvideoconverter.video import Video
+from pyvideoconverter.parallel import SubprocessPool
 
 
 def _get_parser() -> argparse.ArgumentParser:
@@ -52,6 +53,11 @@ def get_dynamic_argument(argument: str, variables: dict) -> str:
     ))
 
 
+def path_leaf(path):
+    head, tail = ntpath.split(path)
+    return tail or ntpath.basename(head)
+
+
 class CliConverter:
     def __init__(self) -> None:
         self.log = logging.getLogger(self.__class__.__name__)
@@ -80,7 +86,7 @@ class CliConverter:
         outputs = list()
 
         for input in self.inputs:
-            input_filename = f = os.path.basename(input)
+            input_filename = f = path_leaf(input)
             input_rawname = r = input_filename.split('.')[0]
             input_dir = d = get_dir(input)
 
@@ -115,7 +121,7 @@ class CliConverter:
                 future.result()  # TODO: Handle results.
 
         if self.args.remove_source:
-            for file in outputs:
+            for file in inputs:
                 os.remove(file)
 
     @property

@@ -22,7 +22,7 @@ EXTS_INFO = {
 
 
 def _prepare(s):
-    match = re.match(r'^[a-zA-Z0-9\-\"/\.\'\ \\]*$', s)
+    match = re.match(r'^[a-zA-Z0-9\-\"/\.\'\ \\_]*$', s)
 
     if not match:
         raise OSError('Invalid argument `%s`' % s)
@@ -64,9 +64,9 @@ class Video:
             raise VideoError(f'Invalid destination file {dst}.')
 
         self.command = command = (
-            f'ffmpeg -i {self.path} -vcodec {FFMPEG_ARGS["vcodec"]} '
+            f'ffmpeg -i "{self.path}" -vcodec {FFMPEG_ARGS["vcodec"]} '
             f'-preset {_prepare(kwargs.get("preset", "ultrafast"))} '
-            f'-crf {FFMPEG_ARGS["crf"]} {dest}'
+            f'-crf {FFMPEG_ARGS["crf"]} "{dest}"'
         )
         return command
 
